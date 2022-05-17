@@ -18,18 +18,17 @@ in the user's browser.
                with :kbd:`F12`, to view **debug information** like JavaScript,
                engine, and WebGL errors.
 
-.. attention:: `There are significant bugs when running HTML5 projects on iOS
-               <https://github.com/godotengine/godot/issues?q=is:issue+is:open+label:platform:html5+ios>`__
-               (regardless of the browser). We recommend using
-               :ref:`iOS' native export functionality <doc_exporting_for_ios>`
-               instead, as it will also result in better performance.
-
 .. note::
 
     If you use Linux, due to
     `poor Firefox WebGL performance <https://bugzilla.mozilla.org/show_bug.cgi?id=1010527>`__,
     it's recommended to play the exported project using a Chromium-based browser
     instead of Firefox.
+
+.. seealso::
+
+    If running into a problem only after exporting to HTML5, see the
+    `list of HTML5-specific issues reported on GitHub <https://github.com/godotengine/godot/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Aplatform%3Ahtml5>`__.
 
 WebGL version
 -------------
@@ -334,3 +333,38 @@ defaulting to ``false`` to prevent polluting the global namespace::
         # execute in global execution context,
         # thus adding a new JavaScript global variable `SomeGlobal`
         JavaScript.eval("var SomeGlobal = {};", true)
+
+Mobile limitations
+------------------
+
+The HTML5 export can run on mobile platforms with some caveats. While native
+:ref:`Android <doc_exporting_for_android>` and :ref:`iOS <doc_exporting_for_ios>`
+exports will always perform better by a significant margin, the HTML5 export
+allows people to run your project without going through app stores.
+
+The most prominent known issues are:
+
+- **Using the GLES2 renderer to target WebGL 1.0 is strongly recommended.**
+  The GLES2 renderer is more suited to low-end devices compared to GLES3.
+- On iOS 15 and newer, switching to another application for more than about 30
+  seconds then switching back to the web browser will break audio playback until
+  the page is reloaded.
+- On iOS 13 and older, WebP decoding is not supported. This means that the Lossy
+  texture compression mode must not be used (VRAM Compressed is fine). For
+  lossless texture compression, PNG must be used instead. Enable **Rendering >
+  Misc > Lossless_compression > Force PNG** in the Project Settings, then exit
+  the editor, remove the ``.import/`` *folder* (not the ``*.import`` files),
+  then open the editor again.
+
+CPU and GPU performance is at a premium when running on mobile devices, but this
+is even more the case when running a project exported to HTML5 (as it's
+WebAssembly instead of native code). See :ref:`doc_performance` section of the
+documentation for advice on optimizing your project. If your project runs on
+platforms other than HTML5, you can use :ref:`doc_feature_tags`, to apply
+lower-end settings when running the project exported to HTML5.
+
+To speed up loading times on mobile devices, you should also `compile an
+optimized export template <doc_optimizing_for_size>` with unused features
+disabled. Depending on the features used by your project, this can reduce the
+size of the WebAssembly payload significantly, making it faster to download and
+initialize (even when cached).
