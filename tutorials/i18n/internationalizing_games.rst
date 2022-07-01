@@ -18,8 +18,7 @@ Localization is usually done by specific studios hired for the job and,
 despite the huge amount of software and file formats available for this,
 the most common way to do localization to this day is still with
 spreadsheets. The process of creating the spreadsheets and importing
-them is already covered in the :ref:`doc_importing_translations` tutorial,
-so this one could be seen more like a follow-up to that one.
+them is covered in the :ref:`doc_localization_using_spreadsheets` tutorial.
 
 
 .. note:: We will be using the official demo as an example; you can
