@@ -74,6 +74,16 @@ shrinks the vertex array to remove duplicate vertices.
 
 .. tabs::
  .. code-tab:: gdscript GDScript
+    # Suppose we have a quad defined by 6 vertices as follows
+    st.add_vertex(Vector3(-1, 1, 0))
+    st.add_vertex(Vector3(1, 1, 0))
+    st.add_vertex(Vector3(-1, -1, 0))
+
+    st.add_vertex(Vector3(1, 1, 0))
+    st.add_vertex(Vector3(1, -1, 0))
+    st.add_vertex(Vector3(-1, -1, 0))
+
+    # We can make the quad more efficient by using an index array and only utilizing 4 vertices
 
     # Creates a quad from four corner vertices.
     # add_index() can be called before or after add_vertex()
