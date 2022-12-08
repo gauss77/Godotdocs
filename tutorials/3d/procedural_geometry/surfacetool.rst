@@ -86,11 +86,7 @@ shrinks the vertex array to remove duplicate vertices.
     st.add_index(3)
     st.add_index(2)
 
-    # If don't want to use add_index() but just index(), you need to add six
-    # vertices via add_vertex() (three for each triangle corner).
-    # index() will then take care of generating the correct array index.
-    # it will also remove duplicate vertices where all attributes,
-    # including the position are the same.
+    # Alternatively we can use ``st.index()`` which will create the quad for us and remove the duplicate vertices
     st.index()
 
 Similarly, if you have an index array, but you want each vertex to be unique (e.g. because
