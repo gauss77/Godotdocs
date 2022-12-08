@@ -117,8 +117,8 @@ that each vertex have UVs and normals set already.
 
     st.commit(mesh)
 
-By default, when generating normals, they will be calculated on a per-face basis. If you want
-smooth vertex normals, when adding vertices, call ``add_smooth_group()``. ``add_smooth_group()``
-needs to be called while building the geometry, e.g. before the call to ``add_vertex()``
-(if non-indexed) or ``add_index()`` (if indexed).
-It is recommended to call it directly after ``begin()``.
+By default, when generating normals, they will be calculated on a per-vertex basis (i.e. they will
+be "smooth normals"). If you want flat vertex normals (i.e. a single normal vector per face), when
+adding vertices, call ``add_smooth_group(i)`` where ``i`` is a unique number per vertex.
+``add_smooth_group()`` needs to be called while building the geometry, e.g. before the call to
+``add_vertex()``.
