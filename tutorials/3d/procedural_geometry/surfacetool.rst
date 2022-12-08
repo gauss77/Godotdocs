@@ -41,7 +41,7 @@ in, ``commit()`` returns an ArrayMesh.
     # Create new ArrayMesh.
     var mesh = st.commit()
 
-Code creates a triangle with indices.
+The below code creates a triangle without indices.
 
 .. tabs::
  .. code-tab:: gdscript GDScript
