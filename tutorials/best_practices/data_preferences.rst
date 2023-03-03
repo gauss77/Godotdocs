@@ -239,7 +239,7 @@ tree structures.
     class_name TreeNode
 
     var _parent : TreeNode = null
-    var _children : = [] setget
+    var _children := []
 
     func _notification(p_what):
         match p_what:
