@@ -11,17 +11,15 @@ sections. For instance, to learn about inputs, we recommend you to read
 Programming languages
 ---------------------
 
-The sections below each focus on a given programming language or, in GDNative's
-case, an interface that works with multiple languages.
+The sections below each focus on a given programming language.
 
 .. toctree::
    :maxdepth: 1
    :name: toc-learn-scripting
 
    gdscript/index
-   visual_script/index
    c_sharp/index
-   gdnative/index
+   gdextension/index
 
 Core features
 -------------

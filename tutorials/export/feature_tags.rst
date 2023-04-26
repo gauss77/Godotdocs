@@ -19,9 +19,14 @@ Each *feature* is represented as a string, which can refer to many of the follow
 
 Features can be queried at run-time from the singleton API by calling:
 
-::
+.. tabs::
+ .. code-tab:: gdscript
 
     OS.has_feature(name)
+
+ .. code-tab:: csharp
+
+    OS.HasFeature(name);
 
 OS feature tags are used by GDExtension to determine which libraries to load.
 For example, a library for ``linux.debug.editor.x86_64`` will be
@@ -38,11 +43,6 @@ Here is a list of most feature tags in Godot. Keep in mind they are **case-sensi
 | **android**     | Running on Android                                       |
 +-----------------+----------------------------------------------------------+
 | **bsd**         | Running on \*BSD                                         |
-+-----------------+----------------------------------------------------------+
-| **html5**       | Running on HTML5                                         |
-+-----------------+----------------------------------------------------------+
-| **javascript**  | :ref:`JavaScript singleton <doc_javascript_eval>` is     |
-|                 | available                                                |
 +-----------------+----------------------------------------------------------+
 | **linux**       | Running on Linux                                         |
 +-----------------+----------------------------------------------------------+
@@ -62,7 +62,11 @@ Here is a list of most feature tags in Godot. Keep in mind they are **case-sensi
 +-----------------+----------------------------------------------------------+
 | **editor**      | Running on an editor build                               |
 +-----------------+----------------------------------------------------------+
-| **standalone**  | Running on a non-editor build                            |
+| **template**    | Running on a non-editor (export template) build          |
++-----------------+----------------------------------------------------------+
+| **double**      | Running on a double-precision build                      |
++-----------------+----------------------------------------------------------+
+| **single**      | Running on a single-precision build                      |
 +-----------------+----------------------------------------------------------+
 | **64**          | Running on a 64-bit build (any architecture)             |
 +-----------------+----------------------------------------------------------+
@@ -108,13 +112,16 @@ Here is a list of most feature tags in Godot. Keep in mind they are **case-sensi
 +-----------------+----------------------------------------------------------+
 | **s3tc**        | Textures using S3TC (DXT/BC) compression are supported   |
 +-----------------+----------------------------------------------------------+
+| **movie**       | :ref:`Movie Maker mode <doc_creating_movies>` is active  |
++-----------------+----------------------------------------------------------+
 
 .. warning::
 
-    With the exception of texture compression feature tags, default feature tags
-    are **immutable**. This means that they will *not* change depending on
-    run-time conditions. For example, ``OS.has_feature("mobile")`` will return
-    ``false`` when running a project exported to HTML5 on a mobile device.
+    With the exception of texture compression and ``movie`` feature tags,
+    default feature tags are **immutable**. This means that they will *not*
+    change depending on run-time conditions. For example,
+    ``OS.has_feature("mobile")`` will return ``false`` when running a project
+    exported to HTML5 on a mobile device.
 
     To check whether a project exported to HTML5 is running on a mobile device,
     :ref:`call JavaScript code <doc_javascript_eval>` that reads the browser's
@@ -127,6 +134,13 @@ It is possible to add custom features to a build; use the relevant
 field in the *export preset* used to generate it:
 
 .. image:: img/feature_tags1.png
+
+.. note::
+
+    Custom feature tags are only used when running the exported project
+    (including with :ref:`doc_one-click_deploy`). They are **not used** when
+    running the project from the editor, even if the export preset marked as
+    **Runnable** for your current platform has custom feature tags defined.
 
 Overriding project settings
 ---------------------------
@@ -164,4 +178,4 @@ Customizing the build
 ---------------------
 
 Feature tags can be used to customize a build process too, by writing a custom **ExportPlugin**.
-They are also used to specify which shared library is loaded and exported in **GDNative**.
+They are also used to specify which shared library is loaded and exported in **GDExtension**.

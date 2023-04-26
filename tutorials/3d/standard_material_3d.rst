@@ -15,7 +15,7 @@ This tutorial explains the parameters present in both materials.
 
 There are 4 ways to add these materials to an object. A material can be added in
 the *Material* property of the mesh. It can be added in the *Material* property of
-the node using the mesh (such as a MeshInstance node), the *Material Override* property
+the node using the mesh (such as a MeshInstance3D node), the *Material Override* property
 of the node using the mesh, and the *Material Overlay*.
 
 .. image:: img/add_material.png
@@ -176,7 +176,7 @@ the object. The default is *Burley*. Other modes are also available:
   (via roughness). Works well for clay-like materials and some types of cloth.
 * **Toon:** Provides a hard cut for lighting, with smoothing affected by roughness.
   It is recommended you disable sky contribution from your environment's
-  ambient light settings or disable ambient light in the spatial material
+  ambient light settings or disable ambient light in the StandardMaterial3D
   to achieve a better effect.
 
 .. image:: img/spatial_material6.png
@@ -218,8 +218,8 @@ Choosing this option means vertex color is used as albedo color.
 Is sRGB
 ~~~~~~~
 
-Most 3D DCCs will likely export vertex colors as sRGB, so toggling this
-option on will help them look correct.
+Most 3D modeling software will likely export vertex colors as sRGB, so toggling
+this option on will help them look correct.
 
 Albedo
 ------
@@ -267,9 +267,9 @@ Emission
 --------
 
 *Emission* specifies how much light is emitted by the material (keep in mind this
-does not include light surrounding geometry unless :ref:`doc_gi_probes` are used).
-This value is added to the resulting final image and is not affected by other
-lighting in the scene.
+does not include light surrounding geometry unless :ref:`VoxelGI <doc_using_voxel_gi>`
+or :ref:`SDFGI <doc_using_sdfgi>` are used). This value is added to the resulting
+final image and is not affected by other lighting in the scene.
 
 .. image:: img/spatial_material15.png
 
@@ -427,6 +427,8 @@ Godot supports two UV channels per material. Secondary UV is often useful for
 ambient occlusion or emission (baked light). UVs can be scaled and offset,
 which is useful when using repeating textures.
 
+.. _doc_standard_material_3d_triplanar_mapping:
+
 Triplanar Mapping
 ~~~~~~~~~~~~~~~~~
 
@@ -445,6 +447,8 @@ World Triplanar
 
 When using triplanar mapping, it is computed in object local space. This
 option makes it use world space instead.
+
+.. _doc_standard_material_3d_sampling:
 
 Sampling
 --------
@@ -527,8 +531,8 @@ Use Point Size
 ~~~~~~~~~~~~~~~
 
 This option is only effective when the geometry rendered is made of points
-(generally it's made of triangles when imported from 3D DCCs). If so, then
-those points can be resized (see below).
+(generally it's made of triangles when imported from 3D modeling software). If
+so, then those points can be resized (see below).
 
 Point Size
 ~~~~~~~~~~

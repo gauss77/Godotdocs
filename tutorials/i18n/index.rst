@@ -9,3 +9,4 @@ Internationalization
    localization_using_spreadsheets
    localization_using_gettext
    locales
+   pseudolocalization

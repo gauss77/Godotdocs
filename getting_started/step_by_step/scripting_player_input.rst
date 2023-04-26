@@ -1,3 +1,5 @@
+:article_outdated: True
+
 .. Intention: only introduce one necessary input method at this point. The
    Inputs section of the docs should provide more guides comparing the various
    tools you have to manage the complexity of user input.
@@ -42,6 +44,20 @@ code below.
 
     rotation += angular_speed * direction * delta
 
+ .. code-tab:: csharp C#
+
+    var direction = 0;
+    if (Input.IsActionPressed("ui_left"))
+    {
+        direction = -1;
+    }
+    if (Input.IsActionPressed("ui_right"))
+    {
+        direction = 1;
+    }
+
+    Rotation += AngularSpeed * direction * (float)delta;
+
 Our ``direction`` local variable is a multiplier representing the direction in
 which the player wants to turn. A value of ``0`` means the player isn't pressing
 the left or the right arrow key. A value of ``1`` means the player wants to turn
@@ -75,11 +91,19 @@ To only move when pressing a key, we need to modify the code that calculates the
 velocity. Replace the line starting with ``var velocity`` with the code below.
 
 .. tabs::
-   .. code-tab:: gdscript GDScript
+ .. code-tab:: gdscript GDScript
 
     var velocity = Vector2.ZERO
     if Input.is_action_pressed("ui_up"):
         velocity = Vector2.UP.rotated(rotation) * speed
+
+ .. code-tab:: csharp C#
+
+    var velocity = Vector2.Zero;
+    if (Input.IsActionPressed("ui_up"))
+    {
+        velocity = Vector2.Up.Rotated(Rotation) * Speed;
+    }
 
 We initialize the ``velocity`` with a value of ``Vector2.ZERO``, another
 constant of the built-in ``Vector`` type representing a 2D vector of length 0.
@@ -115,6 +139,39 @@ Here is the complete ``Sprite2D.gd`` file for reference.
             velocity = Vector2.UP.rotated(rotation) * speed
 
         position += velocity * delta
+
+ .. code-tab:: csharp C#
+
+    using Godot;
+
+    public partial class Sprite : Sprite2D
+    {
+        private float Speed = 400;
+        private float AngularSpeed = Mathf.Pi;
+
+        public override void _Process(double delta)
+        {
+            var direction = 0;
+            if (Input.IsActionPressed("ui_left"))
+            {
+                direction = -1;
+            }
+            if (Input.IsActionPressed("ui_right"))
+            {
+                direction = 1;
+            }
+
+            Rotation += AngularSpeed * direction * (float)delta;
+
+            var velocity = Vector2.Zero;
+            if (Input.IsActionPressed("ui_up"))
+            {
+                velocity = Vector2.Up.Rotated(Rotation) * Speed;
+            }
+
+            Position += velocity * (float)delta;
+        }
+    }
 
 If you run the scene, you should now be able to rotate with the left and right
 arrow keys and move forward by pressing :kbd:`Up`.

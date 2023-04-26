@@ -193,7 +193,7 @@ Curve2D, Curve3D, Path and Path2D
 
 There are two objects that contain curves: :ref:`Curve3D <class_Curve3D>` and :ref:`Curve2D <class_Curve2D>` (for 3D and 2D respectively).
 
-They can contain several points, allowing for longer paths. It is also possible to set them to nodes: :ref:`Path <class_Path>` and :ref:`Path2D <class_Path2D>` (also for 3D and 2D respectively):
+They can contain several points, allowing for longer paths. It is also possible to set them to nodes: :ref:`Path3D <class_Path3D>` and :ref:`Path2D <class_Path2D>` (also for 3D and 2D respectively):
 
 .. image:: img/bezier_path_2d.png
 
@@ -219,9 +219,9 @@ Let's do an example with the following pseudocode:
 
     private float _t = 0.0f;
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
-        _t += delta;
+        _t += (float)delta;
         Position = CubicBezier(p0, p1, p2, p3, _t);
     }
 
@@ -250,7 +250,7 @@ Traversal
 
 The last common use case for the curves is to traverse them. Because of what was mentioned before regarding constant speed, this is also difficult.
 
-To make this easier, the curves need to be *baked* into equidistant points. This way, they can be approximated with regular interpolation (which can be improved further with a cubic option). To do this, just use the :ref:`Curve.interpolate_baked()<class_Curve_method_interpolate_baked>` method together with
+To make this easier, the curves need to be *baked* into equidistant points. This way, they can be approximated with regular interpolation (which can be improved further with a cubic option). To do this, just use the :ref:`Curve3D.sample_baked()<class_Curve3D_method_sample_baked>` method together with
 :ref:`Curve2D.get_baked_length()<class_Curve2D_method_get_baked_length>`. The first call to either of them will bake the curve internally.
 
 Traversal at constant speed, then, can be done with the following pseudo-code:
@@ -268,9 +268,9 @@ Traversal at constant speed, then, can be done with the following pseudo-code:
 
     private float _t = 0.0f;
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
-        _t += delta;
+        _t += (float)delta;
         Position = curve.InterpolateBaked(_t * curve.GetBakedLength(), true);
     }
 
